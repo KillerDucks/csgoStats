@@ -1,0 +1,25 @@
+{
+  "name": "csgostats-dreamplain",
+  "version": "1.0.0",
+  "description": "A nodeJS lib to provide CSGO Play stats. (Can be used in Discord)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KillerDucks/csgoStats.git"
+  },
+  "keywords": [
+    "Bindserver",
+    "KillerDucks",
+    "DreamPlain",
+    "csgoStatsNode"
+  ],
+  "author": "Nimesh Patel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KillerDucks/csgoStats/issues"
+  },
+  "homepage": "https://github.com/KillerDucks/csgoStats#readme"
+}
