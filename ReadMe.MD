@@ -39,6 +39,25 @@ csStats.getMySteamID('xserv', function(data){
 });
 ```
 
+### Options
+
+when creating a new instance of the class eg:
+
+```js
+const cStat = new csgoStats();
+```
+
+you can pass through options such as:
+
+* **quiet** - This will suppress any console.log() messages that the class makes. This can be set to **1** to suppress the messages.
+* **vanity** - This allows **just** vanity URL's to be used instead of Steam ID's. To use this set **vanity** to **true**.
+
+to set the options all you have to do is put a JSON object when creating the class instance
+
+```js
+const cStat = new csgoStats({"quiet":"1", "vanity":"true"});
+```
+
 ### Available Commands
 
 * **getStats** - This by its-self will return all CS:GO related data eg: Kills with each weapon, MVP medals and Achievements.
