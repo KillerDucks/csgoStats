@@ -1,5 +1,5 @@
 {
-  "name": "csgoStatsNode",
+  "name": "csgostatsnode",
   "version": "1.0.0",
   "description": "A nodeJS lib to provide CSGO Play stats. (Can be used in Discord)",
   "main": "index.js",
