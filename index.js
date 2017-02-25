@@ -68,7 +68,7 @@ class csgoStatsNode {
       Will take a steamID and retun all CSGO related data later versions of the class will have seperate functions
       to get diffrent pieces of data
     **/
-    if(vanity == true){
+    if(vanity){
       this.getMySteamID(steamID, (data) => {
         this.makePost(data, undefined, (d7) => {
           cb(d7);
@@ -76,61 +76,130 @@ class csgoStatsNode {
       });
 
     } else {
-      this.makePost(steamID, undefined ,function(data){
+
+      this.makePost(steamID, undefined , (data) => {
         cb(data);
+      });
+    }
+
+  }
+
+  getProfile(steamID, cb){
+    if(vanity){
+      this.getMySteamID(steamID, (sID) => {
+        this.makePost(sID, "getProfile" , (data) => {
+          cb(data['response']['players'][0]);
+        });
+      });
+    } else {
+      this.makePost(steamID, "getProfile" , (data) => {
+        cb(data['response']['players'][0]);
       });
     }
   }
 
-  getProfile(steamID, cb){
-    this.makePost(steamID, "getProfile" ,function(data){
-      cb(data['response']['players'][0]);
-    });
+  getProfilePic(steamID, cb){
+    if(vanity){
+      this.getProfile(steamID, (data) => {
+        cb(data['avatarfull']);
+      });
+    } else {
+      this.getProfile(steamID, (data) => {
+        cb(data['avatarfull']);
+      });
+    }
   }
 
-  getProfilePic(steamID, cb){
-    this.makePost(steamID, "getProfile" ,function(data){
-      cb(data['response']['players'][0]);
-    });
+  getProfileName(steamID, cb){
+    if(vanity){
+      this.getProfile(steamID, (data) => {
+        cb(data['personaname']);
+      });
+    } else {
+      this.getProfile(steamID, (data) => {
+        cb(data['personaname']);
+      });
+    }
   }
 
   whatIsMyKD(steamID, cb){
-    this.makePost(steamID, undefined ,function(data){
-      let x = data['playerstats']['stats'][0]['value'];
-      let y = data['playerstats']['stats'][1]['value'];
-      let kd = (x/y).toFixed(2);
-      cb(kd);
-    });
+    if(vanity){
+      this.getMySteamID(steamID, (sID) => {
+        this.makePost(sID, undefined , (data) => {
+          let x = data['playerstats']['stats'][0]['value'];
+          let y = data['playerstats']['stats'][1]['value'];
+          let kd = (x/y).toFixed(2);
+          cb(kd);
+        });
+      });
+    } else {
+      this.makePost(steamID, undefined , (data) => {
+        let x = data['playerstats']['stats'][0]['value'];
+        let y = data['playerstats']['stats'][1]['value'];
+        let kd = (x/y).toFixed(2);
+        cb(kd);
+      });
+    }
   }
-  //n http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=446CE43A060D39DF46941B405BA767D2&vanityurl=xserv
+
   getMySteamID(vanityURL, cb){
-    this.makePost(vanityURL, "vanityURL" ,function(data){
+    this.makePost(vanityURL, "vanityURL" , (data) => {
       cb(data['response']['steamid']);
     });
   }
 
   getMyBans(steamID, cb){
-    this.makePost(steamID, "getBans" ,function(data){
-      cb(data['players'][0]);
-    });
+    if(vanity){
+      this.getMySteamID(steamID, (sID) => {
+        this.makePost(sID, "getBans", (data) => {
+          cb(data['players'][0]);
+        })
+      });
+    } else {
+      this.makePost(steamID, "getBans" , (data) => {
+        cb(data['players'][0]);
+      });
+    }
   }
 
   isVac(steamID, cb){
-    this.getMyBans(steamID, function(data){
-      if(data['VACBanned'] == true){
-        if(quiet == 0){
-          cb("You are currently VAC Banned");
+    if(vanity){
+      this.getMySteamID(steamID, (sID) => {
+        this.getMyBans(sID, (data) => {
+          if(data['VACBanned'] == true){
+            if(quiet == 0){
+              cb("You are currently VAC Banned");
+            } else {
+              cb(1); //Quiet Mode Callback
+              return;
+            }
+          } else {
+            if(quiet == 0){
+              cb("You are currently not VAC Banned");
+            } else {
+              cb(0); //Quiet Mode Callback
+              return;
+            }
+          }
+        });
+      });
+    } else {
+      this.getMyBans(steamID, (data) => {
+        if(data['VACBanned'] == true){
+          if(quiet == 0){
+            cb("You are currently VAC Banned");
+          } else {
+            cb(1); //Quiet Mode Callback
+          }
         } else {
-          cb(1); //Quiet Mode Callback
+          if(quiet == 0){
+            cb("You are currently not VAC Banned");
+          } else {
+            cb(0); //Quiet Mode Callback
+          }
         }
-      } else {
-        if(quiet == 0){
-          cb("You are currently not VAC Banned");
-        } else {
-          cb(0); //Quiet Mode Callback
-        }
-      }
-    });
+      });
+    }
   }
 
   ping(cb){
