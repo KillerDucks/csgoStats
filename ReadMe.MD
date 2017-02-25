@@ -39,6 +39,17 @@ csStats.getMySteamID('xserv', function(data){
 });
 ```
 
+### Available Commands
+
+* **getStats** - This by its-self will return all CS:GO related data eg: Kills with each weapon, MVP medals and Achievements.
+* **getProfile** - Gets all data relating to a players profile eg: Profile name, Profile Image, Last Logon Time, Game ID (If the player is
+                   playing a game).
+* **getProfilePic** - Uses the Data from *getProfile* and pulls your full size (184x184) profile image URL.
+* **whatIsMyKD** - Basic function that calculates your CS:GO K/D to 2 dp (decimal Point).
+* **getMySteamID** - Using a players vanity URL this functions will return the Steam ID.
+* **getMyBans** - Get all bans from Steam eg: VAC Bans, Community Bans and Economy Bans.
+* **isVac** - A simple function that takes the data from *getMyBans* and checks if the VACBanned key is true or false.
+
 ## Built With
 
 * [Needle](https://www.npmjs.com/package/needle) - A HTTP client for NodeJS

@@ -1,10 +1,15 @@
 const needle = require('needle');
 let quiet = 0; //All info messages are displayed if this equals 0
+let vanity = false; //All functions that dont use vanity will need a Steam ID when this is false if true ONLY vanityURL will be used
 
 class csgoStatsNode {
+
   constructor(opts){
     if(opts['quiet'] == 1){
       quiet = 1;
+    }
+    if(opts['vanity'] == "true"){
+      vanity = true;
     }
   }
 
@@ -22,10 +27,32 @@ class csgoStatsNode {
           });
           break;
 
+        case "getBans":
+          needle.get('http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=446CE43A060D39DF46941B405BA767D2&steamids='+ steamID, function(err, resp){
+            if(err) throw err;
+            if(quiet == 0){
+              console.log("csgoStatsNode-> Ban Data Callback");
+            }
+            cb(resp.body);
+          });
+          break;
+
+        case "getProfile":
+        needle.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=446CE43A060D39DF46941B405BA767D2&steamids='+ steamID, function(err, resp){
+          if(err) throw err;
+          if(quiet == 0){
+            console.log("csgoStatsNode-> Profile Data Callback");
+          }
+          cb(resp.body);
+        });
+        break;
+
         case "vanityURL":
         needle.get('http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=446CE43A060D39DF46941B405BA767D2&vanityurl='+ steamID, function(err, resp){
           if(err) throw err;
-          console.log("csgoStatsNode-> VanityURL to Steam ID Callback");
+          if(quiet == 0){
+            console.log("csgoStatsNode-> VanityURL to Steam ID Callback");
+          }
           cb(resp.body);
         });
           break;
@@ -41,8 +68,29 @@ class csgoStatsNode {
       Will take a steamID and retun all CSGO related data later versions of the class will have seperate functions
       to get diffrent pieces of data
     **/
-    this.makePost(steamID, function(data){
-      cb(data);
+    if(vanity == true){
+      this.getMySteamID(steamID, (data) => {
+        this.makePost(data, undefined, (d7) => {
+          cb(d7);
+        })
+      });
+
+    } else {
+      this.makePost(steamID, undefined ,function(data){
+        cb(data);
+      });
+    }
+  }
+
+  getProfile(steamID, cb){
+    this.makePost(steamID, "getProfile" ,function(data){
+      cb(data['response']['players'][0]);
+    });
+  }
+
+  getProfilePic(steamID, cb){
+    this.makePost(steamID, "getProfile" ,function(data){
+      cb(data['response']['players'][0]);
     });
   }
 
@@ -61,15 +109,28 @@ class csgoStatsNode {
     });
   }
 
-  isVac(steamID){
-    /**
-      WIP
-      This function will check if the player/steamID Owner has any bans including VAC bans as said in the func name
-      if this is true a randomly chosen VAC joke will be returned eg:
-        Have a nice VACation
-        All VACancy have been taken
-        etc.r
-    **/
+  getMyBans(steamID, cb){
+    this.makePost(steamID, "getBans" ,function(data){
+      cb(data['players'][0]);
+    });
+  }
+
+  isVac(steamID, cb){
+    this.getMyBans(steamID, function(data){
+      if(data['VACBanned'] == true){
+        if(quiet == 0){
+          cb("You are currently VAC Banned");
+        } else {
+          cb(1); //Quiet Mode Callback
+        }
+      } else {
+        if(quiet == 0){
+          cb("You are currently not VAC Banned");
+        } else {
+          cb(0); //Quiet Mode Callback
+        }
+      }
+    });
   }
 
   ping(cb){
