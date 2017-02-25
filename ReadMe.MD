@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 Run the following command in npm
 
 ```
-npm install --save csgoStatsNode
+npm install --save csgostatsnode
 ```
 
 ## Example/Deployment
