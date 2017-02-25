@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 Run the following command in npm
 
 ```
-npm install --save csgostats-dreamplain
+npm install --save csgoStatsNode
 ```
 
 ## Example/Deployment
@@ -19,8 +19,24 @@ npm install --save csgostats-dreamplain
 Require in the module as follows
 
 ```js
-const csgoStats = require('csgostats-dreamplain');
+const csgoStats = require('csgoStatsNode');
 const cStats = new csgoStats();
+```
+
+Here is an example of getting a players K/D
+
+```js
+csStats.whatIsMyKD('76561198138999275', function(data){
+  console.log("Your K/D is: " + data);
+})
+```
+
+Here is another example of getting a players Steam ID from their vanity URL
+
+```js
+csStats.getMySteamID('xserv', function(data){
+  console.log("Your Steam ID is: " + data);
+});
 ```
 
 ## Built With

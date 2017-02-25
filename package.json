@@ -1,5 +1,5 @@
 {
-  "name": "csgostats-dreamplain",
+  "name": "csgoStatsNode",
   "version": "1.0.0",
   "description": "A nodeJS lib to provide CSGO Play stats. (Can be used in Discord)",
   "main": "index.js",
@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/KillerDucks/csgoStats/issues"
   },
-  "homepage": "https://github.com/KillerDucks/csgoStats#readme"
+  "homepage": "https://github.com/KillerDucks/csgoStats#readme",
+  "dependencies": {
+    "needle": "^1.4.5"
+  }
 }
