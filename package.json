@@ -1,6 +1,6 @@
 {
   "name": "csgostatsnode",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A nodeJS lib to provide CSGO Play stats.",
   "main": "index.js",
   "scripts": {
