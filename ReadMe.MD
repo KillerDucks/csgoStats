@@ -1,6 +1,6 @@
-# CSGO NodeJS wrapper (Made for Discord Bots)
+# CSGO NodeJS wrapper
 
-A nodeJS lib to provide CSGO Play stats. (Can be used in Discord)
+A nodeJS lib to provide CSGO Play stats.
 
 ## Getting Started
 
