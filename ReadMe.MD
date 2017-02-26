@@ -1,3 +1,6 @@
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url]
+[![GitHub issues](https://img.shields.io/github/issues/KillerDucks/csgoStats.svg)](https://github.com/KillerDucks/csgoStats/issues)
+
 # CSGO NodeJS wrapper
 
 A nodeJS lib to provide CSGO Player stats.
@@ -82,3 +85,7 @@ See also the list of [contributors](https://github.com/KillerDucks/csgoStats/con
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+
+[npm-url]: https://npmjs.org/package/csgostatsnode
+[downloads-image]: http://img.shields.io/npm/dm/csgostatsnode.svg
