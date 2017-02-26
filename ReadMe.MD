@@ -1,6 +1,6 @@
 # CSGO NodeJS wrapper
 
-A nodeJS lib to provide CSGO Play stats.
+A nodeJS lib to provide CSGO Player stats.
 
 ## Getting Started
 
