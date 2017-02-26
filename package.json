@@ -1,7 +1,7 @@
 {
   "name": "csgostatsnode",
   "version": "1.0.2",
-  "description": "A nodeJS lib to provide CSGO Play stats.",
+  "description": "A nodeJS lib to provide CSGO Player stats.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

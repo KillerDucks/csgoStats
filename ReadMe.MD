@@ -64,6 +64,7 @@ const cStat = new csgoStats({"quiet":"1", "vanity":"true"});
 
 ### Available Commands
 
+All of these functions take the Steam ID or Vanity URL if the option is set with the exception of *getMySteamID* which only takes a Vanity URL
 * **getStats** - This by its-self will return all CS:GO related data eg: Kills with each weapon, MVP medals and Achievements.
 * **getProfile** - Gets all data relating to a players profile eg: Profile name, Profile Image, Last Logon Time, Game ID (If the player is
                    playing a game).
