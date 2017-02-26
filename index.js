@@ -1,6 +1,7 @@
 const needle = require('needle');
 let quiet = 0; //All info messages are displayed if this equals 0
 let vanity = false; //All functions that dont use vanity will need a Steam ID when this is false if true ONLY vanityURL will be used
+let APIKey = ""; //Lmao not using my Steam API Key
 
 class csgoStatsNode {
 
@@ -11,6 +12,12 @@ class csgoStatsNode {
     if(opts['vanity'] == "true"){
       vanity = true;
     }
+    if(opts['apikey'] == "" | opts['apikey'] == undefined){
+      console.log("You need a Steam API key to use this libary");
+      process.exit(0);
+    } else {
+      APIKey = opts['apikey'];
+    }
   }
 
   makePost(steamID = '76561197960287930', type = 'csgoStats' ,cb){
@@ -18,7 +25,7 @@ class csgoStatsNode {
       switch (type) {
 
         case "csgoStats":
-          needle.get('http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=446CE43A060D39DF46941B405BA767D2&steamid='+ steamID, function(err, resp){
+          needle.get('http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=' + APIKey + '&steamid='+ steamID, function(err, resp){
             if(err) throw err;
             if(quiet == 0){
               console.log("csgoStatsNode-> Raw Data Callback");
@@ -28,7 +35,7 @@ class csgoStatsNode {
           break;
 
         case "getBans":
-          needle.get('http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=446CE43A060D39DF46941B405BA767D2&steamids='+ steamID, function(err, resp){
+          needle.get('http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' + APIKey + '&steamids='+ steamID, function(err, resp){
             if(err) throw err;
             if(quiet == 0){
               console.log("csgoStatsNode-> Ban Data Callback");
@@ -38,7 +45,7 @@ class csgoStatsNode {
           break;
 
         case "getProfile":
-        needle.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=446CE43A060D39DF46941B405BA767D2&steamids='+ steamID, function(err, resp){
+        needle.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + APIKey + '&steamids='+ steamID, function(err, resp){
           if(err) throw err;
           if(quiet == 0){
             console.log("csgoStatsNode-> Profile Data Callback");
@@ -48,7 +55,7 @@ class csgoStatsNode {
         break;
 
         case "vanityURL":
-        needle.get('http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=446CE43A060D39DF46941B405BA767D2&vanityurl='+ steamID, function(err, resp){
+        needle.get('http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=' + APIKey + '&vanityurl='+ steamID, function(err, resp){
           if(err) throw err;
           if(quiet == 0){
             console.log("csgoStatsNode-> VanityURL to Steam ID Callback");

@@ -51,6 +51,12 @@ when creating a new instance of the class eg:
 const cStat = new csgoStats();
 ```
 
+**You must pass through your Steam API key**
+
+* **apikey** - This is the key you will get for signing up for a to the Steam API (Its free to get it)
+
+>You can obtain one at https://steamcommunity.com/dev
+
 you can pass through options such as:
 
 * **quiet** - This will suppress any console.log() messages that the class makes. This can be set to **1** to suppress the messages.
