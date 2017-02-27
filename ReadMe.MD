@@ -65,7 +65,7 @@ you can pass through options such as:
 to set the options all you have to do is put a JSON object when creating the class instance
 
 ```js
-const cStat = new csgoStats({"quiet":"1", "vanity":"true"});
+const cStat = new csgoStats({"quiet":"1", "vanity":"true", "apikey":"<Put your Steam API key here>"});
 ```
 
 ### Available Commands
