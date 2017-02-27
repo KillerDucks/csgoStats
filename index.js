@@ -105,6 +105,24 @@ class csgoStatsNode {
     }
   }
 
+  getProfilePromise(steamID, cb){
+    return new Promise( (resolve, reject) => {
+      if(vanity){
+        this.getMySteamID(steamID, (sID) => {
+          this.makePost(sID, "getProfile" , (data) => {
+            // cb(data['response']['players'][0]);
+            resolve(data['response']['players'][0]);
+          });
+        });
+      } else {
+        this.makePost(steamID, "getProfile" , (data) => {
+          // cb(data['response']['players'][0]);
+          resolve(data['response']['players'][0]);
+        });
+      }
+    });
+  }
+
   getProfilePic(steamID, cb){
     if(vanity){
       this.getProfile(steamID, (data) => {
