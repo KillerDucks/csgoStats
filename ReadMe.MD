@@ -24,7 +24,7 @@ Require in the module as follows
 
 ```js
 const csgoStats = require('csgoStatsNode');
-const cStats = new csgoStats();
+const cStats = new csgoStats({"apikey":"<Put your Steam API key here >"});
 ```
 
 Here is an example of getting a players K/D
@@ -65,7 +65,7 @@ you can pass through options such as:
 to set the options all you have to do is put a JSON object when creating the class instance
 
 ```js
-const cStat = new csgoStats({"quiet":"1", "vanity":"true", "apikey":"<Put your Steam API key here>"});
+const cStat = new csgoStats({"quiet":"1", "vanity":"true", "apikey":"<Put your Steam API key here >"});
 ```
 
 ### Available Commands
